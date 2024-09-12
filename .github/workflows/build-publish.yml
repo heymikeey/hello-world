@@ -1,18 +1,32 @@
-name: build-and-publish-image
-on: [push]
+name: Build and Push Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - main # Triggers the action on push to the main branch
+
 jobs:
-publish-hello-docker-image:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v2
-- name: Login to GitHub Container Registry
-uses: docker/login-action@v1
-with:
-registry: ghcr.io
-username: ${{ github.actor }}
-password: ${{ secrets.GITHUB_TOKEN }}
-- name: Build the hello-world Docker image
-run: |
-       docker build . --tag ghcr.io/heymikeey/hello-world:latest
-       docker run ghcr.io/heymikeey/hello-world:latest
-       docker push ghcr.io/heymikeey/hello-world:latest
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and tag Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/hello-world:latest .
+
+      - name: Push Docker image to GitHub Container Registry
+        run: |
+          docker push ghcr.io/${{ github.repository }}/hello-world:latest
