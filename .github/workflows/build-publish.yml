@@ -5,6 +5,10 @@ on:
     branches:
       - main # Triggers the action on push to the main branch
 
+permissions:
+  packages: write
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
