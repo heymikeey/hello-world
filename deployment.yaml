@@ -1,38 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column; /* Aligns content vertically */
-            font-family: Arial, sans-serif;
-        }
-
-        h1, h2 {
-            margin: 0;
-        }
-
-        h2 {
-            font-size: 1.5em;
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-    <h1>Hello World!</h1>
-    <h2>Release: <span id="release-number"></span></h2>
-
-    <script>
-        // This script will dynamically insert the release number
-        const releaseNumber = "{{RELEASE_NUMBER}}";  // Placeholder to be replaced during build
-        document.getElementById("release-number").textContent = releaseNumber;
-    </script>
-</body>
-</html>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - image: ghcr.io/heymikeey/hello-world/hello-world:v2.0.0
+        name: hello-world
+        ports:
+        - containerPort: 80
