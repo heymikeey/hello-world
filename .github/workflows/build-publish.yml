@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main # Triggers the action on push to the main branch
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   packages: write
@@ -29,8 +31,8 @@ jobs:
 
       - name: Build and tag Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/hello-world:latest .
+          docker build -t ghcr.io/${{ github.repository }}/hello-world:${{ github.ref_name }} .
 
       - name: Push Docker image to GitHub Container Registry
         run: |
-          docker push ghcr.io/${{ github.repository }}/hello-world:latest
+          docker push ghcr.io/${{ github.repository }}/hello-world:${{ github.ref_name }}
