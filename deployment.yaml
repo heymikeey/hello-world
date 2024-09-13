@@ -14,7 +14,7 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: ghcr.io/heymikeey/hello-world/hello-world:v5.0.0
+      - image: ghcr.io/heymikeey/hello-world/hello-world:v5.1.0
         name: hello-world
         env:
         - name: NODE_NAME
@@ -34,9 +34,3 @@ spec:
             - path: "pod-name.txt"
               fieldRef:
                 fieldPath: metadata.name
-      - name: node-info-volume
-        downwardAPI:
-          items:
-            - path: "node-name.txt"
-              fieldRef:
-                fieldPath: spec.nodeName  # Node name
