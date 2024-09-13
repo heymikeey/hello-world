@@ -9,13 +9,30 @@
             height: 100%;
             margin: 0;
             display: flex;
-            justify-content: center; /* Centers horizontally */
-            align-items: center;     /* Centers vertically */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Aligns content vertically */
             font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #555;
         }
     </style>
 </head>
 <body>
     <h1>Hello World!</h1>
+    <h2>Release: <span id="release-number"></span></h2>
+
+    <script>
+        // This script will dynamically insert the release number
+        const releaseNumber = "{{RELEASE_NUMBER}}";  // Placeholder to be replaced during build
+        document.getElementById("release-number").textContent = releaseNumber;
+    </script>
 </body>
 </html>
