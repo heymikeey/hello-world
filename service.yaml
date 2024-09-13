@@ -3,8 +3,10 @@ kind: Service
 metadata:
   name: hello-world
 spec:
+  type: NodePort
+  selector:
+    app: hello-world
   ports:
   - port: 9090
     targetPort: 80
-  selector:
-    app: hello-world
+    nodePort: 32000
