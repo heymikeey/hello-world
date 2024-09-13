@@ -29,7 +29,7 @@
     <h1>Hello World!</h1>
     <h2>Release: <span id="release-number"></span></h2>
     <h3>Pod: <span id="pod-name"></span></h3>
-    <h4>Node: <span id="node-name"></span></h4>
+    <h4>Node: ${NODE_NAME}</span></h4>
 
     <script>
         // This script will dynamically insert the release number
@@ -41,13 +41,6 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('pod-name').textContent = data;
-            });
-        
-        // Fetch and display node name
-        fetch('/node-name.txt')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('node-name').textContent = data;
             });
     </script>
 </body>
