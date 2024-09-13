@@ -18,3 +18,8 @@ spec:
         name: hello-world
         ports:
         - containerPort: 80
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name  # This fetches the pod's name (hostname)
