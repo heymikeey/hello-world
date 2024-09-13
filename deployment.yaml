@@ -14,7 +14,7 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: ghcr.io/heymikeey/hello-world/hello-world:v4.0.0
+      - image: ghcr.io/heymikeey/hello-world/hello-world:v5.0.0
         name: hello-world
         ports:
         - containerPort: 80
@@ -33,8 +33,8 @@ spec:
               fieldRef:
                 fieldPath: metadata.name
       - name: node-info-volume
-      downwardAPI:
-        items:
-          - path: "node-name.txt"
-            fieldRef:
-              fieldPath: spec.nodeName  # Node name
+        downwardAPI:
+          items:
+            - path: "node-name.txt"
+              fieldRef:
+                fieldPath: spec.nodeName  # Node name
