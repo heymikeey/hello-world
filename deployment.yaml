@@ -22,6 +22,9 @@ spec:
         - name: pod-info-volume
           mountPath: /usr/share/nginx/html/pod-name.txt
           subPath: pod-name.txt
+        - name: node-info-volume
+        mountPath: /usr/share/nginx/html/node-name.txt
+        subPath: node-name.txt
       volumes:
       - name: pod-info-volume
         downwardAPI:
@@ -29,3 +32,9 @@ spec:
             - path: "pod-name.txt"
               fieldRef:
                 fieldPath: metadata.name
+      - name: node-info-volume
+      downwardAPI:
+        items:
+          - path: "node-name.txt"
+            fieldRef:
+              fieldPath: spec.nodeName  # Node name
