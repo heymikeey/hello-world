@@ -15,11 +15,11 @@
             font-family: Arial, sans-serif;
         }
 
-        h1, h2 {
+        h1, h2, h3 {
             margin: 0;
         }
 
-        h2 {
+        h2, h3 {
             font-size: 1.5em;
             color: #555;
         }
@@ -28,11 +28,19 @@
 <body>
     <h1>Hello World!</h1>
     <h2>Release: <span id="release-number"></span></h2>
+    <h3>Pod: <span id="pod-name"></span></h3>
 
     <script>
         // This script will dynamically insert the release number
         const releaseNumber = "{{RELEASE_NUMBER}}";  // Placeholder to be replaced during build
         document.getElementById("release-number").textContent = releaseNumber;
+
+        // Fetch and display pod name
+        fetch('/pod-name.txt')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('pod-name').textContent = data;
+            });
     </script>
 </body>
 </html>
