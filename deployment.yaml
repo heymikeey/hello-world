@@ -14,7 +14,7 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: ghcr.io/heymikeey/hello-world/hello-world:v1.0.0
+      - image: ghcr.io/heymikeey/hello-world/hello-world:v2.0.0
         name: hello-world
         ports:
         - containerPort: 80
