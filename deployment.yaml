@@ -14,10 +14,14 @@ spec:
         app: hello-world
     spec:
       containers:
-      - image: ghcr.io/heymikeey/hello-world/hello-world:v3.0.0
+      - image: ghcr.io/heymikeey/hello-world/hello-world:v4.0.0
         name: hello-world
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: pod-info-volume
+          mountPath: /usr/share/nginx/html/pod-name.txt
+          subPath: pod-name.txt
       volumes:
       - name: pod-info-volume
         downwardAPI:
