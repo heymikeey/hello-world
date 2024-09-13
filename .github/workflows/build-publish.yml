@@ -26,6 +26,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build the HTML with Release Number
+        run: |
+          RELEASE_NUMBER="${{ github.ref_name }}" 
+          sed -i "s/{{RELEASE_NUMBER}}/${RELEASE_NUMBER}/g" ./index.html
+
       - name: Build and tag Docker image
         run: |
           docker build -t ghcr.io/${{ github.repository }}/hello-world:${{ github.ref_name }} .
