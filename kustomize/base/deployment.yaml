@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - image: ghcr.io/heymikeey/hello-world/hello-world:v5.1.0
+        name: hello-world
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName  # Node name as env var
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: pod-info-volume
+          mountPath: /usr/share/nginx/html/pod-name.txt
+          subPath: pod-name.txt
+      volumes:
+      - name: pod-info-volume
+        downwardAPI:
+          items:
+            - path: "pod-name.txt"
+              fieldRef:
+                fieldPath: metadata.name
